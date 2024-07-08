@@ -60,6 +60,9 @@ public class Analiz {
                 String regex4 ="(public|private|protected|default)(a-z|.|\s)*" + yeniStr + "(a-z|.|\s)*" ;
                 Pattern oruntu4=Pattern.compile(regex4);
                 
+                String regex5 = "[a-z|.|\s]*;[a-z|.|\s]*" + "/\\*[a-z|.|\s]*\\*/";
+                Pattern oruntu5=Pattern.compile(regex5);
+                
                 boolean javadocmu = false;
                 boolean yorummu = false;
                 
@@ -69,6 +72,7 @@ public class Analiz {
                 	Matcher eslesme2 = oruntu2.matcher(tumsatir);
                 	Matcher eslesme3 = oruntu3.matcher(tumsatir);
                 	Matcher eslesme4 = oruntu4.matcher(tumsatir);
+                	Matcher eslesme5 = oruntu5.matcher(tumsatir);
                 	toplamsatir++;
                 	
                 	tumsatir = tumsatir.trim();
@@ -83,7 +87,15 @@ public class Analiz {
                 	else if (eslesme2.find() && !tumsatir.endsWith(";")) {               		
                 		fonksiyonsayisi++;
                     }
-					
+                	                              	
+                	
+                	if (eslesme5.find()) { 
+                		kodsatiri++;
+                		yorumsatiri++;
+                		
+                	}
+                	            	
+                	
                 	if(tumsatir.startsWith("/**")){
                 		javadocmu = true;                         
                     } 
@@ -112,8 +124,7 @@ public class Analiz {
                     	}
                     	else {
                     		kodsatiri++;
-                    		yorumsatiri++;
-                    		System.out.println("\n"+tumsatir);
+                    		yorumsatiri++;                   	
                     	}                      	
                     }                       
                     else {
@@ -131,7 +142,7 @@ public class Analiz {
                     	}                  	
                     	else
                     		kodsatiri++;
-                    		System.out.println("\n"+tumsatir);
+                    		
                     }
                 	
                 }
